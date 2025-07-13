@@ -1,4 +1,5 @@
 import logging
+import os
 import platform
 import sys
 import time
@@ -120,9 +121,20 @@ def _controller_v1_handler(req: V1RequestBase) -> V1ResponseBase:
     if req.userAgent is not None:
         logging.warning("Request parameter 'userAgent' was removed in FlareSolverr v2.")
 
-    # set default values
+    # set default values with BROWSER_TIMEOUT support
     if req.maxTimeout is None or int(req.maxTimeout) < 1:
-        req.maxTimeout = 60000
+        # Check for BROWSER_TIMEOUT environment variable, fallback to 60000
+        browser_timeout = os.environ.get('BROWSER_TIMEOUT', '60000')
+        try:
+            req.maxTimeout = int(browser_timeout)
+            if req.maxTimeout < 1:
+                logging.warning(f"BROWSER_TIMEOUT value {req.maxTimeout} is invalid, using default 60000")
+                req.maxTimeout = 60000
+            else:
+                logging.debug(f"Using BROWSER_TIMEOUT environment variable: {req.maxTimeout}ms")
+        except ValueError:
+            logging.warning(f"Invalid BROWSER_TIMEOUT value: {browser_timeout}, using default 60000")
+            req.maxTimeout = 60000
 
     # execute the command
     res: V1ResponseBase

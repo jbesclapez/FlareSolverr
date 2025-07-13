@@ -2,12 +2,15 @@
 version: "2.1"
 services:
   flaresolverr:
-    # DockerHub mirror flaresolverr/flaresolverr:latest
-    image: ghcr.io/flaresolverr/flaresolverr:latest
+    # Use your own built image - replace 'yourusername' with your GitHub username
+    # image: ghcr.io/yourusername/flaresolverr:latest
+    # Original image for reference: ghcr.io/flaresolverr/flaresolverr:latest
+    image: ghcr.io/${GITHUB_REPOSITORY:-flaresolverr/flaresolverr}:${IMAGE_TAG:-latest}
     container_name: flaresolverr
     environment:
       - LOG_LEVEL=${LOG_LEVEL:-info}
       - LOG_HTML=${LOG_HTML:-false}
+      - BROWSER_TIMEOUT=${BROWSER_TIMEOUT:-60000}
       - CAPTCHA_SOLVER=${CAPTCHA_SOLVER:-none}
       - TZ=Europe/London
     ports:

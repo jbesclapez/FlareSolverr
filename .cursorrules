@@ -1,0 +1,270 @@
+# FlareSolverr Project Rules
+
+## Project Overview
+FlareSolverr is a Python-based proxy server that bypasses Cloudflare and DDoS-GUARD protection using Selenium with undetected-chromedriver. It provides a REST API for solving web challenges and managing browser sessions.
+
+## Code Style & Standards
+
+### Python Code Style
+- Follow PEP 8 style guidelines
+- Use type hints for function parameters and return values
+- Use descriptive variable and function names
+- Keep functions focused and single-purpose
+- Use docstrings for all public functions and classes
+- Prefer snake_case for variables and functions, PascalCase for classes
+
+### Error Handling
+- Always handle exceptions gracefully with appropriate error messages
+- Use custom exception classes when needed
+- Log errors with appropriate log levels (DEBUG, INFO, WARNING, ERROR)
+- Return meaningful error responses in API endpoints
+
+### Logging
+- Use the existing logging configuration in `flaresolverr.py`
+- Include request IDs in debug logs for traceability
+- Log important events like session creation/destruction
+- Avoid logging sensitive information (cookies, passwords, etc.)
+
+## Architecture Guidelines
+
+### API Design
+- Follow RESTful principles for API endpoints
+- Use consistent JSON response formats as defined in `dtos.py`
+- Validate all input parameters
+- Return appropriate HTTP status codes
+- Include version information in responses
+
+### Session Management
+- Always clean up browser sessions to prevent memory leaks
+- Implement proper session TTL (Time To Live) handling
+- Use session IDs for tracking browser instances
+- Handle session expiration gracefully
+
+### Browser Management
+- Use undetected-chromedriver for browser automation
+- Implement proper browser cleanup in all scenarios
+- Handle browser crashes and timeouts
+- Support headless mode for server environments
+
+## Security Best Practices
+
+### Input Validation
+- Validate all URL parameters
+- Sanitize user inputs to prevent injection attacks
+- Validate proxy configurations
+- Check for malicious URLs or payloads
+
+### Resource Management
+- Implement proper timeout handling
+- Limit concurrent browser instances
+- Monitor memory usage
+- Clean up temporary files and sessions
+
+### API Security
+- Validate Content-Type headers
+- Implement rate limiting if needed
+- Log security-relevant events
+- Use HTTPS in production environments
+
+## Testing Guidelines
+
+### Unit Tests
+- Write tests for all new functionality
+- Use the existing test structure in `tests.py`
+- Mock external dependencies (browser, network calls)
+- Test error conditions and edge cases
+
+### Integration Tests
+- Test API endpoints with real browser interactions
+- Test session management workflows
+- Test timeout and error scenarios
+- Use the test sites defined in `tests_sites.py`
+
+## Performance Considerations
+
+### Browser Optimization
+- Minimize browser startup time
+- Implement browser pooling if needed
+- Use appropriate timeouts for different operations
+- Cache successful challenge solutions when possible
+
+### Memory Management
+- Clean up browser instances promptly
+- Monitor memory usage in long-running sessions
+- Implement garbage collection for expired sessions
+- Use efficient data structures
+
+## Configuration Management
+
+### Environment Variables
+- Use environment variables for configuration (see existing pattern)
+- Document all configuration options
+- Provide sensible defaults
+- Validate configuration on startup
+
+### Docker Support
+- Ensure all changes work with Docker containers
+- Test with different architectures (x86, x64, ARM)
+- Maintain compatibility with docker-compose.yml
+
+## Documentation Standards
+
+### Code Documentation
+- Document all public APIs
+- Include usage examples
+- Document configuration options
+- Keep README.md updated with new features
+
+### API Documentation
+- Document all endpoint parameters
+- Include request/response examples
+- Document error codes and messages
+- Keep API versioning consistent
+
+## Development Workflow
+
+### Git Practices
+- Use descriptive commit messages
+- Create feature branches for new development
+- Test changes before committing
+- Update version numbers appropriately
+
+### Code Review
+- Review for security vulnerabilities
+- Check for memory leaks
+- Verify error handling
+- Ensure proper logging
+
+## Specific Technical Guidelines
+
+### Selenium Usage
+- Use the undetected-chromedriver package
+- Handle WebDriver exceptions properly
+- Implement proper wait strategies
+- Clean up WebDriver instances
+
+### HTTP Handling
+- Use the Bottle framework consistently
+- Handle CORS if needed
+- Implement proper response headers
+- Use appropriate HTTP status codes
+
+### JSON Handling
+- Use the existing DTO classes in `dtos.py`
+- Validate JSON structure
+- Handle malformed JSON gracefully
+- Use consistent serialization/deserialization
+
+## Error Messages and Logging
+
+### User-Friendly Messages
+- Provide clear error messages to API users
+- Include troubleshooting suggestions
+- Log technical details for debugging
+- Use consistent error message format
+
+### Debugging Support
+- Include request IDs in logs
+- Log browser state changes
+- Track session lifecycle events
+- Provide detailed error context
+
+## Browser Compatibility
+
+### Chrome/Chromium Support
+- Test with different Chrome versions
+- Handle browser updates gracefully
+- Support both Chrome and Chromium
+- Maintain compatibility with undetected-chromedriver
+
+### Platform Support
+- Ensure Windows, Linux, and macOS compatibility
+- Handle platform-specific requirements (Xvfb, XQuartz)
+- Test with different architectures
+- Support Docker environments
+
+## Monitoring and Metrics
+
+### Performance Monitoring
+- Use the existing Prometheus plugin
+- Monitor browser instance count
+- Track request success/failure rates
+- Monitor memory usage
+
+### Health Checks
+- Implement proper health check endpoints
+- Monitor browser availability
+- Check system resources
+- Provide status information
+
+## Deployment Considerations
+
+### Docker Deployment
+- Ensure Docker images build correctly
+- Test with docker-compose
+- Support different architectures
+- Handle environment variables properly
+
+### System Service
+- Support systemd service deployment
+- Handle service restarts gracefully
+- Implement proper signal handling
+- Support log rotation
+
+## Code Organization
+
+### File Structure
+- Keep related functionality together
+- Use clear file and directory names
+- Separate concerns appropriately
+- Follow the existing project structure
+
+### Import Organization
+- Group imports logically
+- Use absolute imports when possible
+- Avoid circular imports
+- Keep imports minimal and focused
+
+## Quality Assurance
+
+### Code Quality
+- Use linting tools (flake8, pylint)
+- Follow type checking with mypy
+- Maintain test coverage
+- Review code for best practices
+
+### Performance Testing
+- Test with concurrent requests
+- Monitor memory usage
+- Test timeout scenarios
+- Validate browser cleanup
+
+## Maintenance Guidelines
+
+### Dependency Management
+- Keep dependencies updated
+- Test with new versions
+- Document breaking changes
+- Maintain compatibility
+
+### Version Management
+- Follow semantic versioning
+- Update version numbers appropriately
+- Document changes in CHANGELOG.md
+- Tag releases properly
+
+## Troubleshooting Support
+
+### Common Issues
+- Document common problems and solutions
+- Provide debugging information
+- Include troubleshooting steps
+- Support different environments
+
+### Error Recovery
+- Implement graceful error recovery
+- Handle browser crashes
+- Recover from network issues
+- Maintain service availability
+
+Remember: FlareSolverr is a critical infrastructure component that many users depend on for bypassing web protection. Always prioritize stability, security, and performance in all changes. 

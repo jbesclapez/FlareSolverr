@@ -265,6 +265,7 @@ This is the same as `request.get` but it takes one more param:
 |--------------------|------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | LOG_LEVEL          | info                   | Verbosity of the logging. Use `LOG_LEVEL=debug` for more information.                                                                                         |
 | LOG_HTML           | false                  | Only for debugging. If `true` all HTML that passes through the proxy will be logged to the console in `debug` level.                                          |
+| BROWSER_TIMEOUT    | 60000                  | Default timeout for browser operations in milliseconds. This sets the default maxTimeout when no timeout is specified in API requests. Range: 1-300000.     |
 | CAPTCHA_SOLVER     | none                   | Captcha solving method. It is used when a captcha is encountered. See the Captcha Solvers section.                                                            |
 | TZ                 | UTC                    | Timezone used in the logs and the web browser. Example: `TZ=Europe/London`.                                                                                   |
 | LANG               | none                   | Language used in the web browser. Example: `LANG=en_GB`.                                                                                   |
